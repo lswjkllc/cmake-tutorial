@@ -32,5 +32,8 @@
 *.app
 
 # custom
+.vscode/
+.venv/
+venv/
 build/
 local/
