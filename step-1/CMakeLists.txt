@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 3.10)                       # current camke versi
 project(Tutorial VERSION 1.0)                              # add project version
 
 # Specifying C++ standards
-# set(CMAKE_CXX_STANDARD 11)
-# set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 configure_file(TutorialConfig.h.in TutorialConfig.h)       # configured file
 

@@ -7,8 +7,8 @@ project(Tutorial VERSION 1.0)                                 # add project vers
 option(USE_MYMATH "Use tutorial provided math implementation" ON)
 
 # Specifying C++ standards
-# set(CMAKE_CXX_STANDARD 11)
-# set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 # Add executable
 add_executable(${PROJECT_NAME} tutorial.cxx)

@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.10)                          # current camke version: 3.25.2
+# current camke version: 3.25.2
+# generator expressions required cmake minimum verion is 3.15
+cmake_minimum_required(VERSION 3.15)
 
 # project(Tutorial)
 project(Tutorial VERSION 1.0)                                 # add project version
@@ -6,9 +8,29 @@ project(Tutorial VERSION 1.0)                                 # add project vers
 # Setting options for compiling modules
 option(USE_MYMATH "Use tutorial provided math implementation" ON)
 
-# Specifying C++ standards
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED true)
+# Specifying C++ standards ------------------------------------------------------------------------------
+## -------- 方式一 --------
+# set(CMAKE_CXX_STANDARD 11)
+# set(CMAKE_CXX_STANDARD_REQUIRED true)
+
+## -------- 方式二 --------
+add_library(tutorial_compiler_flags INTERFACE)
+target_compile_features(tutorial_compiler_flags INTERFACE cxx_std_11)
+### add generator expressions 
+set(gcc_like_cxx "$<COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC>")
+set(msvc_cxx "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
+target_compile_options(
+    tutorial_compiler_flags
+    INTERFACE
+    "$<${gcc_like_cxx}:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused>"
+    "$<${msvc_cxx}:-W3>"
+)
+# target_compile_options(
+#     tutorial_compiler_flags
+#     INTERFACE
+#     "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused>>"
+#     "$<${msvc_cxx}:$<BUILD_INTERFACE:-W3>>"
+# )
 
 # Add executable
 add_executable(${PROJECT_NAME} tutorial.cxx)
